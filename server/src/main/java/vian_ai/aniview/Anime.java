@@ -2,6 +2,7 @@ package vian_ai.aniview;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -14,16 +15,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Anime {
     @Id
-    private Object movId;
+    private ObjectId id;
+    private String movId;
     private String title;
     private String releaseDate;
     private String trailerLink;
     private String poster;
-    private List<String> genres;
     private List<String> backdrops;
+    private List<String> genres;
     @DocumentReference
-    private List<String> reviewIds;
+    private List<Review> reviews;
 }

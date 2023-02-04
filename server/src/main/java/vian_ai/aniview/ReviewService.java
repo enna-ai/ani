@@ -13,13 +13,15 @@ public class ReviewService {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
     public Review createReview(String reviewBody, String movId) {
         Review review = reviewRepository.insert(new Review(reviewBody));
 
         mongoTemplate.update(Anime.class)
-            .matching(Criteria.where("movId").is(movId))
-            .apply(new Update().push("reviewIds").value(review))
-            .first();
+                .matching(Criteria.where("movId").is(movId))
+                .apply(new Update().push("reviews").value(review))
+                .first();
+
         return review;
     }
 }
